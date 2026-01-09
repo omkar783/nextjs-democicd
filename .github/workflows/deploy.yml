@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             export PATH=$HOME/node/bin:$PATH
-            cd ${{ secrets.APP_DIR }}
+            cd /home/democicd/apps/democicd
             git pull origin main
             npm ci
             npm run build
