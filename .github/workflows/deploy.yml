@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install dependencies (CI)
         run: npm ci
 
       - name: Build project
@@ -34,7 +34,9 @@ jobs:
             export PATH=$HOME/node/bin:$PATH
             cd /home/democicd/apps/democicd
             git pull origin main
-            npm ci
+            npm install
             npm run build
-            pm2 restart democicd-nextjs || pm2 start npm --name democicd-nextjs -- start
+            pm2 describe democicd-nextjs >/dev/null \
+              && pm2 restart democicd-nextjs \
+              || pm2 start npm --name democicd-nextjs -- start
             pm2 save
